@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"regexp"
 )
 
 type Result struct {
@@ -40,6 +41,12 @@ func GetDefinition(word string) {
 	//fmt.Println(string(data))
 	var jsonResult Result
 	err = json.Unmarshal([]byte(data), &jsonResult)
-	fmt.Println(jsonResult.Definition)
+	//fmt.Println(jsonResult.Definition)
+	fmt.Println(ResultCleaner(jsonResult.Definition)[1])
 
+}
+
+func ResultCleaner(meaning string) []string {
+	regex := regexp.MustCompile("\\d+\\.+\\s")
+	return regex.Split(meaning, -1)
 }
