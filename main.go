@@ -84,8 +84,6 @@ func main() {
 
 	wordContainer := container.New(layout.NewGridLayout(2), word, wordBox)
 
-	//definitionBoxMax := container.New(layout.NewMaxLayout(), definitionBox)
-
 	definitionContainer := container.New(layout.NewGridLayout(2), definition, definitionBox)
 
 	mainContainer := container.New(
@@ -100,8 +98,6 @@ func main() {
 		definitionContainer,
 		layout.NewSpacer(),
 	)
-
-	//win.SetContent(widget.NewLabel("Hello World!"))
 
 	mainContainer.Refresh()
 	win.SetContent(mainContainer)
@@ -128,7 +124,7 @@ func GetDefinition(word string) (string, error) {
 	}
 
 	data, _ := ioutil.ReadAll(response.Body)
-	//fmt.Println(string(data))
+
 	var jsonResult Result
 	err = json.Unmarshal([]byte(data), &jsonResult)
 	cleaner, err := ResultCleaner(jsonResult.Definition)
@@ -137,8 +133,6 @@ func GetDefinition(word string) (string, error) {
 		//log.Fatal("", err)
 		return "", err
 	}
-	//fmt.Println(jsonResult.Definition)
-	//fmt.Println(ResultCleaner(jsonResult.Definition)[1])
 
 	return cleaner, nil
 }
